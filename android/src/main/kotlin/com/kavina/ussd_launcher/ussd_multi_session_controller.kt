@@ -41,10 +41,14 @@ import android.widget.Toast
 class UssdMultiSession(private val context: Context) {
     
     private var ussdOptionsQueue: ArrayDeque<String> = ArrayDeque()
-
+    
     private var isRunning = false
     private var callbackInvoke: CallbackInvoke? = null
     private var map: HashMap<String, HashSet<String>>? = null
+
+    private var firstDelay = 3500L
+    private var stepDelay = 1200L
+
 
     companion object {
         private const val KEY_ERROR = "KEY_ERROR"
@@ -114,7 +118,7 @@ class UssdMultiSession(private val context: Context) {
          // Ajoutez un délai pour attendre que l'appel soit établi avant d'envoyer les options
          Handler(Looper.getMainLooper()).postDelayed({
             sendNextUssdOption()
-        }, 3500) // 3.5 secondes de délai, ajustez si nécessaire
+        }, firstDelay) // 3.5 secondes de délai, ajustez si nécessaire
     }
 
     private fun sendNextUssdOption() {
@@ -142,7 +146,7 @@ class UssdMultiSession(private val context: Context) {
                 // this.callbackInvoke?.responseInvoke("Option envoyée : $option")
                 // Toast.makeText(context, "Option envoyée : $option", Toast.LENGTH_SHORT).show()
                 sendNextUssdOption()
-            }, 100) // 2 secondes de délai, ajustez si nécessaire
+            }, stepDelay) // 2 secondes de délai, ajustez si nécessaire
         } catch (e: Exception) {
             println("Erreur lors de l'envoi de l'option USSD : ${e.message}")
             callbackInvoke?.over("Erreur lors de l'envoi de l'option USSD")
