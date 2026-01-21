@@ -46,8 +46,8 @@ class UssdMultiSession(private val context: Context) {
     private var callbackInvoke: CallbackInvoke? = null
     private var map: HashMap<String, HashSet<String>>? = null
 
-    private var firstDelay = 3500L
-    private var stepDelay = 1200L
+    private var firstDelay = 3500
+    private var stepDelay = 100
 
 
     companion object {
