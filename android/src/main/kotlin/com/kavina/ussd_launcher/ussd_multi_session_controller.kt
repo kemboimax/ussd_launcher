@@ -142,7 +142,7 @@ class UssdMultiSession(private val context: Context) {
                 // this.callbackInvoke?.responseInvoke("Option envoyée : $option")
                 // Toast.makeText(context, "Option envoyée : $option", Toast.LENGTH_SHORT).show()
                 sendNextUssdOption()
-            }, 1200) // 2 secondes de délai, ajustez si nécessaire
+            }, 500) // 2 secondes de délai, ajustez si nécessaire
         } catch (e: Exception) {
             println("Erreur lors de l'envoi de l'option USSD : ${e.message}")
             callbackInvoke?.over("Erreur lors de l'envoi de l'option USSD")
